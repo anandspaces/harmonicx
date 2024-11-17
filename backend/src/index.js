@@ -22,7 +22,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json()); // to parse req.body
 app.use(clerkMiddleware()); // this will add auth to added req obj => req.auth
-app.use(fileupload({
+app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: path.join(__dirname,"tmp"),
     createParentPath: true,

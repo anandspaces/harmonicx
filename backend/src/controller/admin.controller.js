@@ -1,5 +1,5 @@
-import cloudinary from "../lib/cloudinary";
-import { Song } from "../models/song.model";
+import cloudinary from "../lib/cloudinary.js";
+import { Song } from "../models/song.model.js";
 
 // helper function for cloudinary uploads
 const uploadToCloudinary = async (file) => {
