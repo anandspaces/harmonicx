@@ -22,10 +22,9 @@ export const getFeaturedSongs = async (req,res,next) => {
                     title:1,
                     artist:1,
                     imageUrl:1,
-                    audioUrl:1,
-                
-                }
-            }
+                    audioUrl:1,             
+                },
+            },
         ]);
         req.json(songs);
     } catch (error) {
@@ -45,9 +44,8 @@ export const getMadeForYouSongs = async (req,res,next) => {
                     artist:1,
                     imageUrl:1,
                     audioUrl:1,
-                
-                }
-            }
+                },
+            },
         ]);
         req.json(songs);
     } catch (error) {
@@ -67,9 +65,8 @@ export const getTrendingSongs = async (req,res,next) => {
                     artist:1,
                     imageUrl:1,
                     audioUrl:1,
-                
-                }
-            }
+                },
+            },
         ]);
         req.json(songs);
     } catch (error) {
