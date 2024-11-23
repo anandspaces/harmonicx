@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter } from 'react-router-dom';
+import AuthProvider from './providers/AuthProvider';
 // Import your publishable key
 const PUBLISHABLE_KEY = process.env.REACT_CLERK_PUBLISHABLE_KEY || "pk_test_YWRlcXVhdGUtZGlub3NhdXItMzQuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
@@ -18,9 +19,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AuthProvider>
     </ClerkProvider>
   </React.StrictMode>
 );
