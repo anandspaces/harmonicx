@@ -2,9 +2,10 @@ import { SignedIn } from '@clerk/clerk-react'
 import { Slide } from '@mui/material'
 import { HomeIcon, Library, MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import PlaylistSkeleton from '../../components/skeletons/PlaylistSkeleton'
 
 const LeftSidebar = () => {
-  // const isLoading = true;
+  const isLoading = true;
 
   return (
     <div className="h-full flex flex-col gap-2">
@@ -45,11 +46,9 @@ const LeftSidebar = () => {
           </div>
         </div>
 
-        <Slide appear={false} direction="down">
+        <Slide appear={false} direction="down" className="h-[calc(100vh-300px)]">
           <div className="space-y-2">
-            {/* {isLoading ? (
-              PlaylistSkeleton
-            ) : ()} */}
+            {isLoading ? <PlaylistSkeleton/> : "some music" }
           </div>
         </Slide>
       </div>
