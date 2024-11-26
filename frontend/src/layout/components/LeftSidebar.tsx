@@ -7,7 +7,7 @@ import { useMusicStore } from '../../stores/useMusicStore'
 // import PlaylistSkeleton from '../../components/skeletons/PlaylistSkeleton'
 
 const LeftSidebar = () => {
-  const {songs,albums,fetchAlbums,isLoading} = useMusicStore();
+  const { albums,fetchAlbums,isLoading } = useMusicStore();
 
   useEffect(() => {
     fetchAlbums();
