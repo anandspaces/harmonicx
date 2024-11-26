@@ -1,11 +1,19 @@
 import { SignedIn } from '@clerk/clerk-react'
 import { Slide } from '@mui/material'
 import { HomeIcon, Library, MessageCircle } from 'lucide-react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import PlaylistSkeleton from '../../components/skeletons/PlaylistSkeleton'
+import { useMusicStore } from '../../stores/useMusicStore'
+// import PlaylistSkeleton from '../../components/skeletons/PlaylistSkeleton'
 
 const LeftSidebar = () => {
-  const isLoading = false;
+  const {songs,albums,fetchAlbums,isLoading} = useMusicStore();
+
+  useEffect(() => {
+    fetchAlbums();
+  },[fetchAlbums]);
+
+  console.log({albums});
 
   return (
     <div className="h-full flex flex-col gap-2">
@@ -48,7 +56,7 @@ const LeftSidebar = () => {
 
         <Slide appear={false} direction="down" className="h-[calc(100vh-300px)]">
           <div className="space-y-2">
-            {isLoading ? <PlaylistSkeleton/> : "some music" }
+            {isLoading ? "<PlaylistSkeleton/>" : "some music" }
           </div>
         </Slide>
       </div>
