@@ -4,7 +4,7 @@ import { HomeIcon, Library, MessageCircle } from 'lucide-react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useMusicStore } from '../../stores/useMusicStore'
-// import PlaylistSkeleton from '../../components/skeletons/PlaylistSkeleton'
+import PlaylistSkeleton from '../../components/skeletons/PlaylistSkeleton'
 
 const LeftSidebar = () => {
   const { albums,fetchAlbums,isLoading } = useMusicStore();
@@ -56,7 +56,7 @@ const LeftSidebar = () => {
 
         <Slide appear={false} direction="down" className="h-[calc(100vh-300px)]">
           <div className="space-y-2">
-            {isLoading ? "<PlaylistSkeleton/>" : (
+            {isLoading ? <PlaylistSkeleton/> : (
               albums.map((album) => (
                 <Link to={`/albums${album._id}`}
                 key={album._id}
