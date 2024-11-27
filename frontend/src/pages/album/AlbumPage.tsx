@@ -4,6 +4,12 @@ import { useMusicStore } from '../../stores/useMusicStore';
 import { Button, Slide } from '@mui/material';
 import { Clock, Play } from 'lucide-react';
 
+const formatDuration = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2,"0")}`;
+}
+
 const AlbumPage = () => {
   const albumId = useParams();
   const { fetchAlbumById, currentAlbum, isLoading } = useMusicStore();
@@ -88,7 +94,7 @@ const AlbumPage = () => {
                   >
 
                     <div className="flex items-center justify-center">
-                      <span className="group-hover:hidden"><{index + 1}/span>
+                      <span className="group-hover:hidden">{index + 1}</span>
                       <Play className="h-4 w-4 hidden group-hover:block" />
                     </div>
                     <div className="flex items-center gap-3">
@@ -107,7 +113,7 @@ const AlbumPage = () => {
                         {song.createdAt.split("T")[0]}
                       </div>
                       <div className="flex items-center">
-                        {song.duration}
+                        {formatDuration(song.duration)}
                       </div>
                   </div>
                 ))}
