@@ -10,7 +10,7 @@ const FriendsActivity = () => {
   useEffect(() => {
     if (user) fetchUsers();
   }, [fetchUsers,user])
-  const isPlaying = true;
+  const isPlaying = false;
   return (
     <div className="h-ful bg-zinc-900 rounded-lg flex flex-col">
       <div className="p-4 flex justify-between items-center border-b border-zinc-800">
