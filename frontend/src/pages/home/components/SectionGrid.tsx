@@ -27,8 +27,8 @@ const SectionGrid = ({songs,title,isLoading}:SectionGridProps) => {
             <div className="relative mb-4">
               <div className="aspect-square">
                 <img 
-                  src={songs.imageUrl}
-                  alt={songs.title}
+                  src={song.imageUrl}
+                  alt={song.title}
                   className="w-full h-full obkect-cover transition-transform duration-300 group-hover:scale-105" 
                 />
               </div>
