@@ -1,50 +1,12 @@
-import { usePlayerStore } from "../../stores/usePlayerStore";
-import { useEffect, useRef } from "react";
-
-const AudioPlayer = () => {
-	const audioRef = useRef<HTMLAudioElement>(null);
-	const prevSongRef = useRef<string | null>(null);
-
-	const { currentSong, isPlaying, playNext } = usePlayerStore();
-
-	// handle play/pause logic
-	useEffect(() => {
-		if (isPlaying) audioRef.current?.play();
-		else audioRef.current?.pause();
-	}, [isPlaying]);
-
-	// handle song ends
-	useEffect(() => {
-		const audio = audioRef.current;
-
-		const handleEnded = () => {
-			playNext();
-		};
-
-		audio?.addEventListener("ended", handleEnded);
-
-		return () => audio?.removeEventListener("ended", handleEnded);
-	}, [playNext]);
-
-	// handle song changes
-	useEffect(() => {
-		if (!audioRef.current || !currentSong) return;
-
-		const audio = audioRef.current;
-
-		// check if this is actually a new song
-		const isSongChange = prevSongRef.current !== currentSong?.audioUrl;
-		if (isSongChange) {
-			audio.src = currentSong?.audioUrl;
-			// reset the playback position
-			audio.currentTime = 0;
-
-			prevSongRef.current = currentSong?.audioUrl;
-
-			if (isPlaying) audio.play();
-		}
-	}, [currentSong, isPlaying]);
-
-	return <audio ref={audioRef} />;
+const UsersListSkeleton = () => {
+	return Array.from({ length: 4 }).map((_, i) => (
+		<div key={i} className='flex items-center justify-center lg:justify-start gap-3 p-3 rounded-lg animate-pulse'>
+			<div className='h-12 w-12 rounded-full bg-zinc-800' />
+			<div className='flex-1 lg:block hidden'>
+				<div className='h-4 w-24 bg-zinc-800 rounded mb-2' />
+				<div className='h-3 w-32 bg-zinc-800 rounded' />
+			</div>
+		</div>
+	));
 };
-export default AudioPlayer;
+export default UsersListSkeleton;
