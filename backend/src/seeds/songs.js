@@ -134,20 +134,21 @@ const songs = [
 ];
 
 const seedSongs = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
+	try {
+		await mongoose.connect(process.env.MONGODB_URI);
 
-    // Clear existing songs
-    await Song.deleteMany({});
+		// Clear existing songs
+		await Song.deleteMany({});
 
-    // Insert new songs
-    await Song.insertMany(songs);
+		// Insert new songs
+		await Song.insertMany(songs);
 
-    console.log("Songs seeded successfully!");
-  } catch (error) {
-    console.error("Error seeding songs:",error);
-  } finally {
-    mongoose.connection.close();
-  }
+		console.log("Songs seeded successfully!");
+	} catch (error) {
+		console.error("Error seeding songs:", error);
+	} finally {
+		mongoose.connection.close();
+	}
 };
+
 seedSongs();
