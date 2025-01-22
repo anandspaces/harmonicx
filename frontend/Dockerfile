@@ -9,12 +9,15 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-
-# Copy the rest of the application files
+# Copy the rest of the application files and build the frontend
 COPY . .
+RUN npm run build
 
-# Expose port 5000
-EXPOSE 5000
+# Install http-server (for serving the static build)
+RUN npm install -g http-server
+
+# Expose port 3000
+EXPOSE 3000
 
 # Command to run the backend server
-CMD ["npm", "run", "dev"]
+CMD ["http-server", "dist", "-p", "3000"]

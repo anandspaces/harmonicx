@@ -8,8 +8,8 @@ node_modules/
 # Logs
 *.log
 
-# Docker-specific folders
-.dockerignore
+# Git-specific
+.git
 .gitignore
 
 # IDE/Editor folders
