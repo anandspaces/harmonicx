@@ -27,9 +27,12 @@ const PORT = process.env.PORT;
 const httpServer = createServer(app);
 initializeSocket(httpServer);
 
+const isProduction = process.env.NODE_ENV === "production";
+const FRONTEND_URL = isProduction ? "https://spotify-clone-frontend-inky.vercel.app" : "http://localhost:3000";
+
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: FRONTEND_URL,
 		credentials: true,
 	})
 );
