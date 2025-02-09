@@ -24,15 +24,30 @@ const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT;
 
-const httpServer = createServer(app);
-initializeSocket(httpServer);
+// CORS Configuration
+const allowedOrigins = ["http://localhost:3000", "https://harmonicx.vercel.app"];
 
 app.use(
-	cors({
-		origin: ["http://localhost:3000","https://harmonicx.vercel.app/"],
-		credentials: true,
-	})
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
 );
+
+// Preflight request handling
+app.options("*", cors());
+
+// Create HTTP Server
+const httpServer = createServer(app);
+
+// Initialize Socket.IO
+initializeSocket(httpServer);
 
 app.use(express.json()); // to parse req.body
 app.use(clerkMiddleware()); // this will add auth to req obj => req.auth

@@ -5,6 +5,7 @@ export const initializeSocket = (server) => {
 	const io = new Server(server, {
 		cors: {
 			origin: ["http://localhost:3000","https://harmonicx.vercel.app/"],
+			methods: ["GET", "POST"],
 			credentials: true,
 		},
 	});
@@ -13,6 +14,8 @@ export const initializeSocket = (server) => {
 	const userActivities = new Map(); // {userId: activity}
 
 	io.on("connection", (socket) => {
+		console.log("New client connected:", socket.id);
+
 		socket.on("user_connected", (userId) => {
 			userSockets.set(userId, socket.id);
 			userActivities.set(userId, "Idle");
