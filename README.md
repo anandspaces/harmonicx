@@ -1,6 +1,6 @@
-# Spotify Clone - MERN Stack Application
+# HarmonicX - MERN Stack Application
 
-A full-stack Spotify clone application built using the MERN (MongoDB, Express, React, Node.js) stack. This application replicates the core functionalities of Spotify, including song browsing, album details, and user authentication.
+A full-stack HarmonicX application built using the MERN (MongoDB, Express, React, Node.js) stack. This application replicates the core functionalities of Web based Music Player, including song browsing, album details, and user authentication.
 
 ## Features
 
