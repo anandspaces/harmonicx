@@ -24,6 +24,4 @@ dist-ssr
 *.sw?
 
 # extras
-public/albums
-public/cover-images
 public/songs
