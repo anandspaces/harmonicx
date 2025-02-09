@@ -29,7 +29,7 @@ initializeSocket(httpServer);
 
 app.use(
 	cors({
-		origin: ["http://localhost:3000","https://spotify-clone-frontend-inky.vercel.app/"],
+		origin: ["http://localhost:3000","https://harmonicx.vercel.app/"],
 		credentials: true,
 	})
 );
