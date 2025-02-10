@@ -4,7 +4,7 @@ import { Message } from "../models/message.model.js";
 export const initializeSocket = (server) => {
 	const io = new Server(server, {
 		cors: {
-			origin: ["http://localhost:3000","https://harmonicx.vercel.app/"],
+			origin: ["http://localhost:3000","https://harmonicx.vercel.app/"], // added list for frontend
 			methods: ["GET", "POST"],
 			credentials: true,
 		},
