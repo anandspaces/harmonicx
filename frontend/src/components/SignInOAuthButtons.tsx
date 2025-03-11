@@ -1,5 +1,4 @@
 import { useSignIn } from "@clerk/clerk-react";
-import { Button } from "./ui/button";
 
 const SignInOAuthButtons = () => {
 	const { signIn, isLoaded } = useSignIn();
@@ -21,10 +20,14 @@ const SignInOAuthButtons = () => {
 	}
 	
 	return (
-		<Button onClick={signInWithGoogle} variant={"secondary"} className='w-full text-white border-zinc-200 h-11'>
-			<img src='/google.png' alt='Google' className='size-5' />
-			Continue with Google
-		</Button>
-	);
+    <button
+      onClick={signInWithGoogle}
+      className="flex w-60 h-11 items-center justify-center gap-3 rounded-lg border border-zinc-700 
+      bg-zinc-800 text-white transition hover:bg-zinc-700 focus:ring-2 focus:ring-zinc-600"
+    >
+      <img src="/google.png" alt="Google" className="h-5 w-5" />
+      <span className="text-sm font-medium">Continue with Google</span>
+    </button>
+  );
 };
 export default SignInOAuthButtons;

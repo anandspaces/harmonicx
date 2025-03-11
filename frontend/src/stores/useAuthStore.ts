@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/lib/axios";
 import { create } from "zustand";
+import { axiosInstance } from "../lib/axios";
 
 interface AuthStore {
 	isAdmin: boolean;
