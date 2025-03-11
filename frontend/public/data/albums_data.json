@@ -1,0 +1,48 @@
+[
+  {
+    "title": "Urban Nights",
+    "artist": "Various Artists",
+    "imageUrl": "/albums/1.jpg",
+    "releaseYear": 2024,
+    "songs": [
+      "song_id_1",
+      "song_id_2",
+      "song_id_3",
+      "song_id_4"
+    ]
+  },
+  {
+    "title": "Coastal Dreaming",
+    "artist": "Various Artists",
+    "imageUrl": "/albums/2.jpg",
+    "releaseYear": 2024,
+    "songs": [
+      "song_id_5",
+      "song_id_6",
+      "song_id_7",
+      "song_id_8"
+    ]
+  },
+  {
+    "title": "Midnight Sessions",
+    "artist": "Various Artists",
+    "imageUrl": "/albums/3.jpg",
+    "releaseYear": 2024,
+    "songs": [
+      "song_id_9",
+      "song_id_10",
+      "song_id_11"
+    ]
+  },
+  {
+    "title": "Eastern Dreams",
+    "artist": "Various Artists",
+    "imageUrl": "/albums/4.jpg",
+    "releaseYear": 2024,
+    "songs": [
+      "song_id_12",
+      "song_id_13",
+      "song_id_14"
+    ]
+  }
+]
