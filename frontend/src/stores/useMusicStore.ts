@@ -25,6 +25,18 @@ interface MusicStore {
 	deleteAlbum: (id: string) => Promise<void>;
 }
 
+const fetchFallbackData = async (url: string) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Failed to fetch fallback data");
+    return await response.json();
+  } catch (error) {
+    console.error("Fallback fetch error:", error);
+		toast.error("Failed to fetch local data.");
+    return [];
+  }
+};
+
 export const useMusicStore = create<MusicStore>((set) => ({
 	albums: [],
 	songs: [],
@@ -82,7 +94,9 @@ export const useMusicStore = create<MusicStore>((set) => ({
 			const response = await axiosInstance.get("/songs");
 			set({ songs: response.data });
 		} catch (error: any) {
-			set({ error: error.message });
+			console.error("Error fetching songs, falling back:", error);
+      const fallbackData = await fetchFallbackData("/data/songs_data.json");
+      set({ songs: fallbackData });
 		} finally {
 			set({ isLoading: false });
 		}
@@ -107,7 +121,9 @@ export const useMusicStore = create<MusicStore>((set) => ({
 			const response = await axiosInstance.get("/albums");
 			set({ albums: response.data });
 		} catch (error: any) {
-			set({ error: error.response.data.message });
+			console.error("Error fetching albums, falling back:", error);
+      const fallbackData = await fetchFallbackData("/data/albums_data.json");
+      set({ albums: fallbackData });
 		} finally {
 			set({ isLoading: false });
 		}
