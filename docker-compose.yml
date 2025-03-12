@@ -7,11 +7,6 @@ services:
     container_name: backend
     ports:
       - "5000:5000"
-    env_file: ./.env
-    environment:
-      - DB_URI=${MONGODB_ATLAS_URI}  # Use the full MongoDB Atlas URI from .env
-    depends_on:
-      - frontend
 
   # Frontend Service
   frontend:
