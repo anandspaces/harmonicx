@@ -77,11 +77,13 @@ const AlbumPage = () => {
 								className='w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 
                 hover:scale-105 transition-all'
 							>
+								<div className="flex justify-center">
 								{isPlaying && currentAlbum?.songs.some((song) => song._id === currentSong?._id) ? (
 									<Pause className='h-7 w-7 text-black' />
 								) : (
 									<Play className='h-7 w-7 text-black' />
 								)}
+								</div>
 							</button>
 						</div>
 
