@@ -2,6 +2,9 @@ import { UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+	const handleLogin = () => {
+    window.location.href = 'http://localhost:5000/api/auth/google';
+  };
 	return (
 		<div className='flex items-center justify-between'>
 			<div className='flex items-center gap-3 mb-8'>
@@ -14,6 +17,15 @@ const Header = () => {
 				</div>
 			</div>
 			<UserButton />
+			<div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-2xl font-semibold mb-4">Login with Google</h1>
+      <button
+        onClick={handleLogin}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Sign in with Google Oauth
+      </button>
+    </div>
 		</div>
 	);
 };
