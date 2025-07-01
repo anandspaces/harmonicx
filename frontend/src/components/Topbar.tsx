@@ -7,7 +7,9 @@ import { useAuthStore } from "../stores/useAuthStore";
 const Topbar = () => {
 	const { isAdmin } = useAuthStore();
 	console.log({ isAdmin });
-
+  const handleLogin = () => {
+    window.location.href = 'http://localhost:5000/api/auth/google';
+  };
 	return (
     <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-zinc-900/75 backdrop-blur-md">
       {/* Logo */}
@@ -34,6 +36,15 @@ const Topbar = () => {
         </SignedOut>
 
         <UserButton />
+        <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-2xl font-semibold mb-4">Login with Google</h1>
+      <button
+        onClick={handleLogin}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Sign in with Google Oauth
+      </button>
+    </div>
       </div>
     </div>
   );
