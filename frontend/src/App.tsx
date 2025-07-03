@@ -8,7 +8,7 @@ import Album from "./pages/Album";
 import Admin from "./pages/Admin";
 import { Toaster } from "react-hot-toast";
 import NotFound from "./pages/NotFound";
-
+// Editing from android
 function App() {
 	return (
 		<Router>
