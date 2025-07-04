@@ -1,17 +1,30 @@
 import { Song } from "../models/song.model.js";
 import { Album } from "../models/album.model.js";
-import cloudinary from "../lib/cloudinary.js";
+import bucket from "../lib/firebase.js";
+import { v4 as uuidv4 } from "uuid";
+import fs from "fs/promises";
+import path from "path";
 
-// helper function for cloudinary uploads
-const uploadToCloudinary = async (file) => {
+// helper function for Firebase Storage uploads (admin SDK)
+const uploadToFirebase = async (file, folder) => {
 	try {
-		const result = await cloudinary.uploader.upload(file.tempFilePath, {
-			resource_type: "auto",
+		const fileExt = file.name.split('.').pop();
+		const fileName = `${folder}/${uuidv4()}.${fileExt}`;
+		const destination = fileName;
+		await bucket.upload(file.tempFilePath, {
+			destination,
+			public: true,
+			metadata: {
+				contentType: file.mimetype
+			}
 		});
-		return result.secure_url;
+		// Clean up temp file
+		await fs.unlink(file.tempFilePath);
+		// Get public URL
+		return `https://storage.googleapis.com/${bucket.name}/${destination}`;
 	} catch (error) {
-		console.log("Error in uploadToCloudinary", error);
-		throw new Error("Error uploading to cloudinary");
+		console.log("Error in uploadToFirebase", error);
+		throw new Error("Error uploading to Firebase Storage");
 	}
 };
 
@@ -25,8 +38,8 @@ export const createSong = async (req, res, next) => {
 		const audioFile = req.files.audioFile;
 		const imageFile = req.files.imageFile;
 
-		const audioUrl = await uploadToCloudinary(audioFile);
-		const imageUrl = await uploadToCloudinary(imageFile);
+		const audioUrl = await uploadToFirebase(audioFile, 'songs');
+		const imageUrl = await uploadToFirebase(imageFile, 'images');
 
 		const song = new Song({
 			title,
@@ -79,7 +92,7 @@ export const createAlbum = async (req, res, next) => {
 		const { title, artist, releaseYear } = req.body;
 		const { imageFile } = req.files;
 
-		const imageUrl = await uploadToCloudinary(imageFile);
+		const imageUrl = await uploadToFirebase(imageFile, 'albums');
 
 		const album = new Album({
 			title,
