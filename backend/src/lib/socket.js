@@ -1,10 +1,16 @@
 import { Server } from "socket.io";
 import { Message } from "../models/message.model.js";
+import { config } from "../config/env.js";
 
+/**
+ * Initialize Socket.IO server
+ * @param {Object} server - HTTP server instance
+ * @returns {Object} Socket.IO server instance
+ */
 export const initializeSocket = (server) => {
 	const io = new Server(server, {
 		cors: {
-			origin: ["http://localhost:3000","https://harmonicx.vercel.app/"], // added list for frontend
+			origin: config.allowedOrigins,
 			methods: ["GET", "POST"],
 			credentials: true,
 		},
@@ -73,4 +79,6 @@ export const initializeSocket = (server) => {
 			}
 		});
 	});
+	
+	return io;
 };
