@@ -6,14 +6,27 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		email: {
+			type: String,
+			required: false,
+			unique: true,
+			sparse: true,
+		},
 		imageUrl: {
 			type: String,
 			required: true,
 		},
-		clerkId: {
+		id: {
 			type: String,
-			required: true,
+			required: false,
 			unique: true,
+			sparse: true,
+		},
+		googleId: {
+			type: String,
+			required: false,
+			unique: true,
+			sparse: true,
 		},
 	},
 	{ timestamps: true } //  createdAt, updatedAt
