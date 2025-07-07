@@ -4,10 +4,10 @@ A full-stack HarmonicX application built using the MERN (MongoDB, Express, React
 
 ## Features
 
-- **Frontend**: Developed using React with Clerk for authentication and Material-UI for styling.
+- **Frontend**: Developed using React with Material-UI for styling.
 - **Backend**: Built using Express.js, MongoDB for the database, and Socket.io for real-time updates.
-- **User Authentication**: Powered by Clerk authentication.
-- **Cloud Storage**: Integrated with Cloudinary for media uploads.
+- **User Authentication**: Powered by Google OAuth authentication.
+- **Cloud Storage**: Integrated with Firebase for media uploads.
 - **Styling**: Tailwind CSS for responsive and modern design.
 
 ## Tech Stack
@@ -15,14 +15,14 @@ A full-stack HarmonicX application built using the MERN (MongoDB, Express, React
 - **Frontend**:
   - React
   - React Router DOM
-  - Clerk (authentication)
+  - Google OAuth
   - Material-UI
   - Tailwind CSS
 - **Backend**:
   - Node.js
   - Express.js
   - MongoDB (Mongoose)
-  - Cloudinary
+  - Firebase Storage
   - Socket.io
 
 ## Installation
@@ -31,8 +31,8 @@ A full-stack HarmonicX application built using the MERN (MongoDB, Express, React
 
 - Node.js and npm installed.
 - MongoDB database set up.
-- Cloudinary account for media storage.
-- Clerk account for authentication.
+- Firebase account for media storage.
+- Google account for authentication.
 
 ### Frontend Setup
 
