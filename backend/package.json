@@ -22,6 +22,7 @@
     "express-fileupload": "^1.5.1",
     "firebase": "^11.10.0",
     "firebase-admin": "^13.4.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.4",
     "mongose": "^0.0.2-security",
     "node-cron": "^3.0.3",
