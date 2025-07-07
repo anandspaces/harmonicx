@@ -72,11 +72,6 @@ A full-stack HarmonicX application built using the MERN (MongoDB, Express, React
 
    ```env
    MONGO_URI=<your_mongo_connection_string>
-   CLOUDINARY_CLOUD_NAME=<your_cloudinary_cloud_name>
-   CLOUDINARY_API_KEY=<your_cloudinary_api_key>
-   CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
-   CLERK_API_KEY=<your_clerk_api_key>
-   CLERK_SECRET_KEY=<your_clerk_secret_key>
    ```
 
 4. Seed the database with sample songs and albums:
