@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import { useChatStore } from "../stores/useChatStore";
 import ScrollArea from "./Scrollarea";
 import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
+import Cookies from "js-cookie";
 
 const FriendsActivity = () => {
 	const { users, fetchUsers, onlineUsers, userActivities } = useChatStore();
-	const { user } = useUser();
+	const user = Cookies.get('user')
 
 	useEffect(() => {
 		if (user) fetchUsers();

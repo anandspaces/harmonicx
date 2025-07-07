@@ -17,7 +17,7 @@ const formatTime = (date: string) => {
 };
 
 const ChatPage = () => {
-	const { user } = .getItem('user')
+	const user = Cookie.get('user')
 	const { messages, selectedUser, fetchUsers, fetchMessages } = useChatStore();
 
 	useEffect(() => {
