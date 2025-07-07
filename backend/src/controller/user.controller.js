@@ -3,8 +3,23 @@ import { Message } from "../models/message.model.js";
 
 export const getAllUsers = async (req, res, next) => {
 	try {
-		const currentUserId = req.auth.userId;
-		const users = await User.find({ clerkId: { $ne: currentUserId } });
+		// Check user authentication
+		const authResult = verifyUserAuth(req);
+		if (!authResult.authenticated) {
+			return res.status(401).json({ message: authResult.message });
+		}
+		
+		const currentUserId = authResult.user.authType === 'test' 
+			? authResult.user.userId 
+			: authResult.user.id;
+			
+		const users = await User.find({ 
+			$or: [
+				{ id: { $ne: currentUserId } },
+				{ _id: { $ne: authResult.user.userId } }
+			]
+		});
+		
 		res.status(200).json(users);
 	} catch (error) {
 		next(error);
@@ -13,7 +28,16 @@ export const getAllUsers = async (req, res, next) => {
 
 export const getMessages = async (req, res, next) => {
 	try {
-		const myId = req.auth.userId;
+		// Check user authentication
+		const authResult = verifyUserAuth(req);
+		if (!authResult.authenticated) {
+			return res.status(401).json({ message: authResult.message });
+		}
+		
+		const myId = authResult.user.authType === 'test' 
+			? authResult.user.userId 
+			: authResult.user.userId;
+			
 		const { userId } = req.params;
 
 		const messages = await Message.find({
