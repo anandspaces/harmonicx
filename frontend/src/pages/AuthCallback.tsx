@@ -1,40 +1,66 @@
-import { SignedOut, UserButton } from "@clerk/clerk-react";
-import { LayoutDashboardIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useAuthStore } from "../stores/useAuthStore";
-import SignInOAuthButtons from "../components/SignInOAuthButtons";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { axiosInstance } from "../lib/axios";
+import { Loader } from "lucide-react";
 
-const Topbar = () => {
-	const { isAdmin } = useAuthStore();
-	console.log({ isAdmin });
-
+const AuthCallback = () => {
+	const { user, isLoaded } = useUser();
+	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	
+	// Handle Google OAuth callback
+	useEffect(() => {
+		const name = searchParams.get("name");
+		const email = searchParams.get("email");
+		const token = searchParams.get("token");
+		
+		if (name && email && token) {
+			// This is a Google OAuth callback
+			// Store the token in localStorage
+			localStorage.setItem("auth_token", token);
+			localStorage.setItem("user_name", name);
+			localStorage.setItem("user_email", email);
+			
+			// Update axios default headers
+			axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+			
+			// Redirect to home page
+			navigate("/");
+			return;
+		}
+		
+		// Handle auth callback
+		const handleCallback = async () => {
+			if (isLoaded && user) {
+				try {
+					// Register the user in our backend
+					await axiosInstance.post("/auth/callback", {
+						id: user.id,
+						firstName: user.firstName,
+						lastName: user.lastName,
+						imageUrl: user.imageUrl,
+						email: user.primaryEmailAddress?.emailAddress,
+					});
+					
+					// Redirect to home page
+					navigate("/");
+				} catch (error) {
+					console.error("Error in auth callback", error);
+				}
+			}
+		};
+		
+		handleCallback();
+	}, [isLoaded, user, navigate, searchParams]);
+	
 	return (
-    <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-zinc-900/75 backdrop-blur-md">
-      {/* Logo Section */}
-      <div className="flex items-center gap-2 text-white font-semibold">
-        <img src="/harmonic.png" className="h-8 w-8" alt="HarmonicX logo" />
-        <span>HarmonicX</span>
-      </div>
-
-      {/* Right Section: Admin Dashboard, OAuth, and User Button */}
-      <div className="flex items-center gap-4">
-        {isAdmin && (
-          <Link
-            to="/admin"
-            className="flex items-center gap-2 px-4 py-2 border border-zinc-700 text-white rounded-lg hover:bg-zinc-800 transition"
-          >
-            <LayoutDashboardIcon className="w-4 h-4" />
-            Admin Dashboard
-          </Link>
-        )}
-
-        <SignedOut>
-          <SignInOAuthButtons />
-        </SignedOut>
-
-        <UserButton />
-      </div>
-    </div>
-  );
+		<div className="h-screen flex items-center justify-center bg-zinc-900">
+			<div className="text-center">
+				<Loader className="mx-auto h-8 w-8 animate-spin text-emerald-500" />
+				<p className="mt-4 text-zinc-400">Setting up your account...</p>
+			</div>
+		</div>
+	);
 };
-export default Topbar;
+
+export default AuthCallback;

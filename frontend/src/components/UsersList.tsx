@@ -20,7 +20,7 @@ const UsersList = () => {
 									key={user._id}
 									onClick={() => setSelectedUser(user)}
 									className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition 
-										${selectedUser?.clerkId === user.clerkId ? "bg-zinc-800" : "hover:bg-zinc-800/50"}`}
+										${selectedUser?.id === user.id ? "bg-zinc-800" : "hover:bg-zinc-800/50"}`}
 								>
 									{/* Avatar (Using Tailwind) */}
 									<div className='relative'>
@@ -32,7 +32,7 @@ const UsersList = () => {
 										{/* Online Indicator */}
 										<div
 											className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ring-2 ring-zinc-900
-                        ${onlineUsers.has(user.clerkId) ? "bg-green-500" : "bg-zinc-500"}`}
+                        ${onlineUsers.has(user.id) ? "bg-green-500" : "bg-zinc-500"}`}
 										/>
 									</div>
 

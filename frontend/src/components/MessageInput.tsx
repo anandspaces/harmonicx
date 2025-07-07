@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/clerk-react";
 import { Send } from "lucide-react";
 import { useState } from "react";
 import { useChatStore } from "../stores/useChatStore";
@@ -10,7 +9,7 @@ const MessageInput = () => {
 
 	const handleSend = () => {
 		if (!selectedUser || !user || !newMessage) return;
-		sendMessage(selectedUser.clerkId, user.id, newMessage.trim());
+		sendMessage(selectedUser.id, user.id, newMessage.trim());
 		setNewMessage("");
 	};
 

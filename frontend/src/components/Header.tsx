@@ -1,4 +1,3 @@
-import { UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -16,7 +15,6 @@ const Header = () => {
 					<p className='text-zinc-400 mt-1'>Manage your music catalog</p>
 				</div>
 			</div>
-			<UserButton />
 			<div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl font-semibold mb-4">Login with Google</h1>
       <button

@@ -18,8 +18,8 @@ const ChatHeader = () => {
 				{/* User Info */}
 				<div>
 					<h2 className="font-medium text-white">{selectedUser.fullName}</h2>
-					<p className={`text-sm ${onlineUsers.has(selectedUser.clerkId) ? "text-green-400" : "text-zinc-400"}`}>
-						{onlineUsers.has(selectedUser.clerkId) ? "Online" : "Offline"}
+					<p className={`text-sm ${onlineUsers.has(selectedUser.id) ? "text-green-400" : "text-zinc-400"}`}>
+						{onlineUsers.has(selectedUser.id) ? "Online" : "Offline"}
 					</p>
 				</div>
 			</div>

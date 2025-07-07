@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
 import Topbar from "../components/Topbar";
 import ScrollArea from "../components/Scrollarea";
@@ -7,6 +6,7 @@ import UsersList from "../components/UsersList";
 import ChatHeader from "../components/ChatHeader";
 import MessageInput from "../components/MessageInput";
 import { Avatar, AvatarImage } from "../components/Avatar";
+import Cookie from 'js-cookie';
 
 const formatTime = (date: string) => {
 	return new Date(date).toLocaleTimeString("en-US", {
@@ -17,7 +17,7 @@ const formatTime = (date: string) => {
 };
 
 const ChatPage = () => {
-	const { user } = useUser();
+	const { user } = .getItem('user')
 	const { messages, selectedUser, fetchUsers, fetchMessages } = useChatStore();
 
 	useEffect(() => {
@@ -25,7 +25,7 @@ const ChatPage = () => {
 	}, [fetchUsers, user]);
 
 	useEffect(() => {
-		if (selectedUser) fetchMessages(selectedUser.clerkId);
+		if (selectedUser) fetchMessages(selectedUser.id);
 	}, [selectedUser, fetchMessages]);
 
 	console.log({ messages });
