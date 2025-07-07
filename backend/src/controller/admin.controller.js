@@ -28,8 +28,34 @@ const uploadToFirebase = async (file, folder) => {
 	}
 };
 
+/**
+ * Admin authentication helper
+ * Verifies the user is authenticated and is an admin
+ */
+const verifyAdminAccess = async (req, res) => {
+	const user = AuthService.verifyAuth(req);
+	
+	if (!user) {
+		return { authenticated: false, message: "Unauthorized - you must be logged in" };
+	}
+	
+	const isAdmin = await AuthService.isAdmin(user);
+	
+	if (!isAdmin) {
+		return { authenticated: false, message: "Unauthorized - you must be an admin" };
+	}
+	
+	return { authenticated: true, user };
+};
+
 export const createSong = async (req, res, next) => {
 	try {
+		// Check admin access
+		const authResult = await verifyAdminAccess(req);
+		if (!authResult.authenticated) {
+			return res.status(403).json({ message: authResult.message });
+		}
+		
 		if (!req.files || !req.files.audioFile || !req.files.imageFile) {
 			return res.status(400).json({ message: "Please upload all files" });
 		}
@@ -67,6 +93,12 @@ export const createSong = async (req, res, next) => {
 
 export const deleteSong = async (req, res, next) => {
 	try {
+		// Check admin access
+		const authResult = await verifyAdminAccess(req);
+		if (!authResult.authenticated) {
+			return res.status(403).json({ message: authResult.message });
+		}
+		
 		const { id } = req.params;
 
 		const song = await Song.findById(id);
@@ -89,6 +121,12 @@ export const deleteSong = async (req, res, next) => {
 
 export const createAlbum = async (req, res, next) => {
 	try {
+		// Check admin access
+		const authResult = await verifyAdminAccess(req);
+		if (!authResult.authenticated) {
+			return res.status(403).json({ message: authResult.message });
+		}
+		
 		const { title, artist, releaseYear } = req.body;
 		const { imageFile } = req.files;
 
@@ -112,6 +150,12 @@ export const createAlbum = async (req, res, next) => {
 
 export const deleteAlbum = async (req, res, next) => {
 	try {
+		// Check admin access
+		const authResult = await verifyAdminAccess(req);
+		if (!authResult.authenticated) {
+			return res.status(403).json({ message: authResult.message });
+		}
+		
 		const { id } = req.params;
 		await Song.deleteMany({ albumId: id });
 		await Album.findByIdAndDelete(id);
@@ -123,5 +167,15 @@ export const deleteAlbum = async (req, res, next) => {
 };
 
 export const checkAdmin = async (req, res, next) => {
-	res.status(200).json({ admin: true });
+	try {
+		// Check admin access
+		const authResult = await verifyAdminAccess(req);
+		if (!authResult.authenticated) {
+			return res.status(403).json({ message: authResult.message });
+		}
+		
+		res.status(200).json({ admin: true });
+	} catch (error) {
+		next(error);
+	}
 };
