@@ -26,7 +26,7 @@ const AdminPage = () => {
 			<DashboardStats />
 
 			<div className="space-y-6">
-				{/* Tabs List */}
+				
 				<div className="flex bg-zinc-800/50 p-1 rounded-lg">
 					<button
 						onClick={() => setActiveTab("songs")}
