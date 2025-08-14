@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import admin from 'firebase-admin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const filePath = path.resolve(__dirname, 'serviceAccountKey.json');
+const filePath = path.resolve(__dirname, '../../serviceAccountKey.json');
 
 if (!fs.existsSync(filePath)) {
   throw new Error(`Service account file not found at ${filePath}`);

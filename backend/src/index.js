@@ -1,6 +1,7 @@
 import express from "express";
 import fileUpload from "express-fileupload";
 import path from "path";
+import { fileURLToPath } from 'url';
 import cors from "cors";
 import fs from "fs";
 import { createServer } from "http";
@@ -21,7 +22,8 @@ import statRoutes from "./routes/stat.route.js";
 // Validate environment variables
 validateEnv();
 
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = config.port;
 
@@ -117,7 +119,7 @@ const startServer = async () => {
 		
 		// Start server
 		httpServer.listen(PORT, () => {
-			console.log(`Server is running on port ${PORT} in ${config.nodeEnv} mode`);
+			console.log(`🚀 Server is listening on http://localhost:${PORT} in ${config.nodeEnv} mode`);
 		});
 	} catch (error) {
 		console.error("Server startup error:", error);
